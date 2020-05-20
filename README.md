@@ -1,1 +1,1 @@
-# OCS-App-Server
+# OCS-App의 서버
