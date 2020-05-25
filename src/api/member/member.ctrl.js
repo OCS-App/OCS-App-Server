@@ -3,6 +3,8 @@ const tokenLib = require('../../lib/token');
 
 exports.login = async (req, res) => {
     const { e_mail, pw } = req.body;
+    console.log('login');
+    console.log(e_mail, pw)
 
     if (!e_mail) {
         const result = {
@@ -18,7 +20,7 @@ exports.login = async (req, res) => {
     if (!pw) {
         const result = {
             status: 400,
-            message: "pw를 입력해주세요!",
+            message: "pw를 ㅐ입력해주세요!",
         }
 
         res.status(400).json(result);
@@ -51,6 +53,7 @@ exports.login = async (req, res) => {
             }
         }
 
+        console.log(member.adsf)
         res.status(200).json(result);
 
 
@@ -66,40 +69,41 @@ exports.login = async (req, res) => {
     }
 }
 
-
-exports.register = async(req, res) => {
+exports.register = async (req, res) => {
     const { body } = req;
+    console.log('login');
+    console.log(body.e_mail)
 
     try {
         const memberEmail = await memberModel.findMemberEmail(body.e_mail);
-    
-        if(memberEmail) {
-          const result = {
-            status: 302,
-            message: "이미 가입이 된 e_mail입니다!",
-          }
-        
-          res.status(409).json(result);
-    
-          return;
+
+        if (memberEmail) {
+            const result = {
+                status: 302,
+                message: "이미 가입이 된 e_mail입니다!",
+            }
+
+            res.status(409).json(result);
+
+            return;
         }
-    
+
         await memberModel.registerAccount(body);
-    
+
         const result = {
-          status: 200,
-          message: "회원가입 성공!",
+            status: 200,
+            message: "회원가입 성공!",
         }
-        
+
         res.status(200).json(result);
-      } catch(error) {
+    } catch (error) {
         console.log(error);
-        
+
         const result = {
-          status: 500,
-          message: "서버 에러!",
+            status: 500,
+            message: "서버 에러!",
         }
-    
+
         res.status(500).json(result);
-      }
+    }
 }

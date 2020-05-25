@@ -3,11 +3,11 @@ const lib = require('../lib/token');
 const verifyToken = async (req, res, next) => {
   const token = req.headers['x-access-token'];
   // console.log(token);
-  
+
   try {
     let decodedToken = await lib.verifyToken(token);
-    
-    if(decodedToken.sub !== 'token') {
+
+    if (decodedToken.sub !== 'token') {
       const result = {
         status: 403,
         message: '잘못된 토큰'
@@ -17,11 +17,11 @@ const verifyToken = async (req, res, next) => {
     }
 
     req.decoded = decodedToken;
-    
-  } catch(error) {
+
+  } catch (error) {
     console.log(error.message);
 
-    switch(error.message) {
+    switch (error.message) {
       case 'jwt must be provided':
         status = 401;
         message = '토큰을 전송해 주세요.'
@@ -40,7 +40,7 @@ const verifyToken = async (req, res, next) => {
         status = 500;
         message = '서버 에러!';
     }
-    
+
     const result = {
       status: status,
       message: message

@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
-const jwt_secret = process.env.jwt_secret; 
+const jwt_secret = process.env.jwt_secret;
 
 exports.issuedToken = async (userId, userData) => {
   const option = {
@@ -9,9 +9,9 @@ exports.issuedToken = async (userId, userData) => {
     subject: 'token',
   }
 
-  try{
+  try {
     return jwt.sign({ userId, userData }, jwt_secret, option);
-  } catch(error) {
+  } catch (error) {
     throw error;
   }
 }
@@ -21,17 +21,17 @@ exports.refreshToken = async (userId, userData) => {
     expiresIn: '60 days',
   }
 
-  try{
+  try {
     return jwt.sign({ userId, userData }, jwt_secret, option);
-  } catch(error) {
+  } catch (error) {
     throw error;
   }
 }
 
 exports.verifyToken = async (token) => {
-  try{
+  try {
     return jwt.verify(token, jwt_secret);
-  } catch(error) {
+  } catch (error) {
     throw error
   }
 }
