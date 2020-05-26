@@ -26,7 +26,7 @@ exports.login = async (req, res) => {
     if (!pw) {
         const result = {
             status: 400,
-            message: "pw를 ㅐ입력해주세요!",
+            message: "pw를 입력해주세요!",
         }
 
         res.status(400).json(result);
