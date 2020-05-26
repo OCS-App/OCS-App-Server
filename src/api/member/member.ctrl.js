@@ -1,5 +1,7 @@
 const memberModel = require('../../models/Member');
 const tokenLib = require('../../lib/token');
+const validate = require('../../lib/validation');
+
 const moment = require('moment');
 require('moment-timezone');
 moment.tz.setDefault("Asia/Seoul");
@@ -80,6 +82,17 @@ exports.register = async (req, res) => {
     console.log('register');
     console.log(body.e_mail)
 
+    const validateBody = await validate.validateRegisterUser(body);
+
+    if(validateBody){
+        const result = {
+          status: 400,
+          message: "회원가입 양식을 확인 해주세요!",
+        }
+    
+        res.status(400).json(result);
+    }
+
     try {
         const memberEmail = await memberModel.findMemberEmail(body.e_mail);
 
@@ -103,7 +116,6 @@ exports.register = async (req, res) => {
 
         res.status(200).json(result);
     } catch (error) {
-        console.log(error);
 
         const result = {
             status: 500,
