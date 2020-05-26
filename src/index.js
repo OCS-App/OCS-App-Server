@@ -14,6 +14,7 @@ const mongo_url = process.env.MONGO_URL
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(api)
+app.use('/', express.static('public'));
 
 mongoose.connect(mongo_url, {
   useCreateIndex: true,
