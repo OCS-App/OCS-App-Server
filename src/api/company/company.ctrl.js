@@ -9,9 +9,9 @@ exports.testupload = async (req, res) => {
 
     const result = {
         status: 200,
-        data:{
-            userName : userData.name,
-            image : image
+        data: {
+            userName: userData.name,
+            image: image
         }
     }
 

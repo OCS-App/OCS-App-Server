@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const Company = new Schema({
-    name:{
+    name: {
         type: String,
         required: true
     },
@@ -10,8 +10,8 @@ const Company = new Schema({
     image: String
 })
 
-Company.statics.register = async function(name, annualSalary, image){
-    company = new this({name, annualSalary, image});
+Company.statics.register = async function (name, annualSalary, image) {
+    company = new this({ name, annualSalary, image });
     return company.save();
 }
 

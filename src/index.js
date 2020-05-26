@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const app = express();
 const server = http.createServer(app);
 const api = require('./api');
-const port  = process.env.PORT;
+const port = process.env.PORT;
 const mongo_url = process.env.MONGO_URL
 
 app.use(bodyParser.json());
@@ -28,5 +28,5 @@ mongoose.connect(mongo_url, {
 
 
 server.listen(port, () => {
-    console.log(`OCS-App-Server listening to ${port}`);
-  });
+  console.log(`OCS-App-Server listening to ${port}`);
+});
