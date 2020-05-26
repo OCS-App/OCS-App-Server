@@ -30,5 +30,4 @@ Member.statics.findMemberEmail = async function (e_mail) {
 Member.statics.findMemberForLogin = async function (e_mail, pw) {
     return this.findOne({ 'e_mail': e_mail, 'pw': pw });
 }
-
 module.exports = mongoose.model('Member', Member)
