@@ -1,7 +1,13 @@
 const memberModel = require('../../models/Member');
 const tokenLib = require('../../lib/token');
+const moment = require('moment');
+require('moment-timezone');
+moment.tz.setDefault("Asia/Seoul");
+
+
 
 exports.login = async (req, res) => {
+    console.log('\n' + moment().format('YYYY-MM-DD HH:mm:ss'));
     const { e_mail, pw } = req.body;
     console.log('login');
     console.log(e_mail, pw)
@@ -53,7 +59,6 @@ exports.login = async (req, res) => {
             }
         }
 
-        console.log(member.adsf)
         res.status(200).json(result);
 
 
@@ -70,8 +75,9 @@ exports.login = async (req, res) => {
 }
 
 exports.register = async (req, res) => {
+    console.log('\n' + moment().format('YYYY-MM-DD HH:mm:ss'));
     const { body } = req;
-    console.log('login');
+    console.log('register');
     console.log(body.e_mail)
 
     try {
