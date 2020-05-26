@@ -6,7 +6,8 @@ const Company = new Schema({
         type: String,
         required: true
     },
-    annualSalary: String
+    annualSalary: String,
+    
 
 
 })
