@@ -7,7 +7,12 @@ const Company = new Schema({
         required: true
     },
     annualSalary: String,
-    
-
-
+    image: String
 })
+
+Company.statics.register = async function(name, annualSalary, image){
+    company = new this({name, annualSalary, image});
+    return company.save();
+}
+
+module.exports = mongoose.model('Company', Company)
