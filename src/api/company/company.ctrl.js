@@ -1,7 +1,7 @@
 const companyModel = require('../../models/Company');
 const validate = require('../../lib/validation');
 
-exports.testupload = async (req, res) => {
+exports.sharing = async (req, res) => {
     const image = req.file.filename;
     const { companyData } = req.decoded;
 
@@ -37,7 +37,7 @@ exports.testupload = async (req, res) => {
             status: 200,
             data: {
                 companyName: companyData.name,
-                image: image, // 여기도 다른 것들처럼 바꿔야 하나 놔두어도 되나
+                image: companyData.image,
                 location: companyData.location,
                 instructions: companyData.instructions,
                 requirement: companyData.require,
