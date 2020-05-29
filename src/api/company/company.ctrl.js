@@ -1,8 +1,6 @@
 const companyModel = require('../../models/Company');
 const validate = require('../../lib/validation');
 
-const 이익현 = 1;
-
 exports.testupload = async (req, res) => {
     const image = req.file.filename;
     const { companyData } = req.decoded;
