@@ -4,14 +4,22 @@ const Schema = mongoose.Schema
 const Company = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
+    image: String,
+    location: String,
+    instructions: String,
+    requirement: String,
+    additions: String,
     annualSalary: String,
-    image: String
+    welfare: String
+
+    
 })
 
-Company.statics.register = async function (name, annualSalary, image) {
-    company = new this({ name, annualSalary, image });
+Company.statics.sharing = async function (name, image, location, instructions, requirement, additions, annualSalary, welfare) {
+    company = new this({name, image, location, instructions, requirement, additions, annualSalary, welfare });
     return company.save();
 }
 
