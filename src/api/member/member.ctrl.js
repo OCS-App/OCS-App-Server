@@ -2,17 +2,8 @@ const memberModel = require('../../models/Member');
 const tokenLib = require('../../lib/token');
 const validate = require('../../lib/validation');
 
-const moment = require('moment');
-require('moment-timezone');
-moment.tz.setDefault("Asia/Seoul");
-
-
-
 exports.login = async (req, res) => {
-    console.log('\n' + moment().format('YYYY-MM-DD HH:mm:ss'));
     const { e_mail, pw } = req.body;
-    console.log('login');
-    console.log(e_mail, pw)
 
     if (!e_mail) {
         const result = {
@@ -27,7 +18,7 @@ exports.login = async (req, res) => {
 
     if (!pw) {
         const result = {
-            status: 400,
+            status: 400,    
             message: "pw를 입력해주세요!",
         }
 
@@ -77,12 +68,9 @@ exports.login = async (req, res) => {
 }
 
 exports.register = async (req, res) => {
-    console.log('\n' + moment().format('YYYY-MM-DD HH:mm:ss'));
-    const { body } = req;
-    console.log('register');
-    console.log(body.e_mail)
+    const { userData } = req.body;
 
-    const validateBody = await validate.validateRegisterUser(body);
+    const validateBody = await validate.validateRegisterUser(userData);
 
     if(validateBody){
         const result = {
@@ -94,7 +82,7 @@ exports.register = async (req, res) => {
     }
 
     try {
-        const memberEmail = await memberModel.findMemberEmail(body.e_mail);
+        const memberEmail = await memberModel.findMemberEmail(userData.e_mail);
 
         if (memberEmail) {
             const result = {
@@ -107,7 +95,7 @@ exports.register = async (req, res) => {
             return;
         }
 
-        await memberModel.registerAccount(body);
+        await memberModel.registerAccount(userData);
 
         const result = {
             status: 200,

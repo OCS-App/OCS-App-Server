@@ -1,26 +1,17 @@
 const companyModel = require('../../models/Company');
 const validate = require('../../lib/validation');
 
-exports.testupload = async (req, res) => {
+exports.SharingCompany = async (req, res) => {
     const image = req.file.filename;
-    const { companyData } = req.decoded;
+    const { companyData } = req.body;
+    const { userData } = req.decoded;
 
     console.log(companyData.name);
     console.log(image);
 
-    const validateUserData = await validate.vaildateSharingCompany(companyData);
-
-    if(validateUserData){
-        const result = {
-            status: 400,
-            message: "공유 양식을 확인 해주세요!",
-        }
-
-        res.status(400).json(result);
-    }
 
     try{
-        const companyName = await companyModel.sharing(name);
+        const companyName = await companyModel.findCompanyName(companyData.name)
 
         if(companyName) {
             const result = {
@@ -32,22 +23,16 @@ exports.testupload = async (req, res) => {
 
             return;
         }
-    
+        
+        const sharingResult = await companyModel.sharing(companyData)
+
         const result = {
             status: 200,
-            data: {
-                companyName: companyData.name,
-                image: image, // 여기도 다른 것들처럼 바꿔야 하나 놔두어도 되나
-                location: companyData.location,
-                instructions: companyData.instructions,
-                requirement: companyData.require,
-                additions: companyData.additions,
-                annualSalary: companyData.annualSalary,
-                welfare: companyData.welfare
-            }
+            data: sharingResult
         }
 
         res.status(200).json(result);
+        
     } catch (error){
         const result = {
             status: 500,

@@ -6,21 +6,23 @@ const Company = new Schema({
         type: String,
         required: true,
         unique: true
-    },
-    image: String,
-    location: String,
-    instructions: String,
-    requirement: String,
-    additions: String,
-    annualSalary: String,
-    welfare: String
-
-    
+    }, // 이름
+    image: String, // 이미지
+    location: String, //주소
+    instructions: String, // 업무분야
+    requirement: String, // 인재상
+    additions: String, // 소개
+    annualSalary: String, //연봉
+    welfare: String //복지
 })
 
 Company.statics.sharing = async function (name, image, location, instructions, requirement, additions, annualSalary, welfare) {
     company = new this({name, image, location, instructions, requirement, additions, annualSalary, welfare });
     return company.save();
+}
+
+Member.statics.findCompanyName = async function (name) {
+    return this.findOne({ 'name': name });
 }
 
 module.exports = mongoose.model('Company', Company)

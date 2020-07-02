@@ -19,23 +19,3 @@ exports.validateRegisterUser = async (body) => {
     throw error;
   }
 }
-
-exports.vaildateSharingCompany = async (userData) => {
-  const schema = Joi.object().keys({
-    name: Joi.string().required(),
-    image: Joi.string().required(),
-    location: Joi.string().required(),
-    instructions: Joi.string().required(),
-    requirement: Joi.string().required(),
-    additions: Joi.string().required(),
-    annualSalary: Joi.string().required(),
-    welfare: Joi.string().required(),
-  });
-
-  try {
-    return await schema.validate(userData).error;
-
-  } catch(error) {
-    throw error;
-  }
-}
