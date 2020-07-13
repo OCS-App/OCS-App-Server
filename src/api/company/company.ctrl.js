@@ -42,3 +42,35 @@ exports.SharingCompany = async (req, res) => {
         res.status(500).json(result);
     }
 }
+
+exports.GetCompanyData = async(req, res) =>{
+    try{
+        const companyData = await companyModel.findCompanyAllInfo()
+
+        if (!companyData) {
+            const result = {
+                status: 403,
+                message: "기업이 존재하지 않습니다.",
+            }
+
+            res.status(403).json(result);
+
+            return;
+        }
+
+        const result = {
+            status: 200,
+            data: companyData
+        }
+
+        res.status(200).json(result);
+
+    } catch (error){
+        const result = {
+            status: 500,
+            message: "서버 에러!",
+        }
+
+        res.status(500).json(result);
+    }
+}

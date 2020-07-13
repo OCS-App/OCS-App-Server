@@ -25,4 +25,8 @@ Member.statics.findCompanyName = async function (name) {
     return this.findOne({ 'name': name });
 }
 
+Company.static.findCompanyAllInfo = async function(){
+    return this.findAll({});
+}
+
 module.exports = mongoose.model('Company', Company)
