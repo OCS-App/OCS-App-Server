@@ -21,7 +21,7 @@ Company.statics.sharing = async function (name, image, location, instructions, r
     return company.save();
 }
 
-Member.statics.findCompanyName = async function (name) {
+Company.statics.findCompanyName = async function (name) {
     return this.findOne({ 'name': name });
 }
 

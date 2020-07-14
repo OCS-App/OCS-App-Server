@@ -68,9 +68,9 @@ exports.login = async (req, res) => {
 }
 
 exports.register = async (req, res) => {
-    const { userData } = req.body;
+    const { body } = req;
 
-    const validateBody = await validate.validateRegisterUser(userData);
+    const validateBody = await validate.validateRegisterUser(body);
 
     if(validateBody){
         const result = {
@@ -82,7 +82,7 @@ exports.register = async (req, res) => {
     }
 
     try {
-        const memberEmail = await memberModel.findMemberEmail(userData.e_mail);
+        const memberEmail = await memberModel.findMemberEmail(body.e_mail);
 
         if (memberEmail) {
             const result = {
@@ -95,7 +95,7 @@ exports.register = async (req, res) => {
             return;
         }
 
-        await memberModel.registerAccount(userData);
+        await memberModel.registerAccount(body);
 
         const result = {
             status: 200,
@@ -104,6 +104,7 @@ exports.register = async (req, res) => {
 
         res.status(200).json(result);
     } catch (error) {
+        console.log(error)
 
         const result = {
             status: 500,

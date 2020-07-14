@@ -8,11 +8,12 @@ const mongoose = require('mongoose')
 const app = express();
 const server = http.createServer(app);
 const api = require('./api');
+const { use } = require('./api');
 const port = process.env.PORT;
 const mongo_url = process.env.MONGO_URL
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(api)
 app.use('/', express.static('public'));
 
