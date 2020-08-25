@@ -3,15 +3,15 @@ const validate = require('../../lib/validation');
 
 exports.SharingCompany = async (req, res) => {
     const image = req.file.filename;
-    const { companyData } = req.body;
-    const { userData } = req.decoded;
+    const { name, location, instructions, requirement, additions, annualSalary, welfare } = req.body;
+    // const { userData } = req.decoded;
 
-    console.log(companyData.name);
+    console.log(name);
     console.log(image);
 
 
     try{
-        const companyName = await companyModel.findCompanyName(companyData.name)
+        const companyName = await companyModel.findCompanyName(name)
 
         if(companyName) {
             const result = {
@@ -24,7 +24,7 @@ exports.SharingCompany = async (req, res) => {
             return;
         }
         
-        const sharingResult = await companyModel.sharing(companyData)
+        const sharingResult = await companyModel.sharing(name, image, location, instructions, requirement, additions, annualSalary, welfare)
 
         const result = {
             status: 200,
@@ -44,6 +44,39 @@ exports.SharingCompany = async (req, res) => {
 }
 
 exports.GetCompanyData = async(req, res) =>{
+    const { name } = req.body
+    try{
+        const companyData = await companyModel.findCompanyName(name)
+
+        if (!companyData) {
+            const result = {
+                status: 403,
+                message: "기업이 존재하지 않습니다.",
+            }
+
+            res.status(403).json(result);
+
+            return;
+        }
+
+        const result = {
+            status: 200,
+            data: companyData
+        }
+
+        res.status(200).json(result);
+
+    } catch (error){
+        const result = {
+            status: 500,
+            message: "서버 에러!",
+        }
+        console.log(error)
+        res.status(500).json(result);
+    }
+}
+
+exports.GetAllCompanyData = async(req, res) => {
     try{
         const companyData = await companyModel.findCompanyAllInfo()
 
@@ -70,7 +103,7 @@ exports.GetCompanyData = async(req, res) =>{
             status: 500,
             message: "서버 에러!",
         }
-
+        console.log(error)
         res.status(500).json(result);
     }
 }
